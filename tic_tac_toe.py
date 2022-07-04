@@ -8,6 +8,13 @@ import dataclasses
 class Board:
     board = list()
 
+    def check_win(board):
+        win_coord = ((0, 1, 2), (3, 4, 5), (6, 7, 8), (0, 3, 6), (1, 4, 7), (2, 5, 8), (0, 4, 8), (2, 4, 6))
+        for each in win_coord:
+            if board[each[0]] == board[each[1]] == board[each[2]]:
+                return board[each[0]]
+        return False
+
 
 # VIEW
 
@@ -19,12 +26,6 @@ class View:
             print("|", board[0 + i * 3], "|", board[1 + i * 3], "|", board[2 + i * 3], "|")
             print("-" * 13)
 
-    def check_win(self, board):
-        win_coord = ((0, 1, 2), (3, 4, 5), (6, 7, 8), (0, 3, 6), (1, 4, 7), (2, 5, 8), (0, 4, 8), (2, 4, 6))
-        for each in win_coord:
-            if board[each[0]] == board[each[1]] == board[each[2]]:
-                return board[each[0]]
-        return False
 
 
 # Controller
@@ -64,7 +65,7 @@ if __name__ == '__main__':
             c.take_input("O", b)
         counter += 1
         if counter > 4:
-            tmp = view.check_win(b)
+            tmp = Board.check_win(b)
             if tmp:
                 print(tmp, "Выиграл!")
                 win = True
